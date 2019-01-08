@@ -10,10 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190108122555) do
+ActiveRecord::Schema.define(version: 20190108131447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "laundries", force: :cascade do |t|
+    t.string "name"
+    t.integer "score"
+    t.string "address"
+    t.string "address_details"
+    t.string "city"
+    t.string "logo"
+    t.string "cover"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "drop_status"
+    t.json "drop_data"
+    t.integer "drop_carrier"
+    t.integer "wash_status"
+    t.json "wash_data"
+    t.integer "delivery_carrier"
+    t.integer "suscription"
+    t.integer "calification_score"
+    t.string "calification_comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.bigint "laundry_id"
+    t.text "description"
+    t.integer "product_type"
+    t.string "picture"
+    t.integer "score"
+    t.boolean "only_for_suscriptions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["laundry_id"], name: "index_products_on_laundry_id"
+  end
+
+  create_table "suscriptions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.json "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_suscriptions_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -42,4 +93,7 @@ ActiveRecord::Schema.define(version: 20190108122555) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "orders", "users"
+  add_foreign_key "products", "laundries"
+  add_foreign_key "suscriptions", "users"
 end

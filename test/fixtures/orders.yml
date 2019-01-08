@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  drop_status: 1
+  drop_data: 
+  drop_carrier: 1
+  wash_status: 1
+  wash_data: 
+  delivery_carrier: 1
+  suscription: 
+  calification_score: 1
+  calification_comment: MyString
+
+two:
+  user: two
+  drop_status: 1
+  drop_data: 
+  drop_carrier: 1
+  wash_status: 1
+  wash_data: 
+  delivery_carrier: 1
+  suscription: 
+  calification_score: 1
+  calification_comment: MyString

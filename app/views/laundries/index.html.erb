@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Laundries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Score</th>
+      <th>Address</th>
+      <th>Address details</th>
+      <th>City</th>
+      <th>Logo</th>
+      <th>Cover</th>
+      <th>Location</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @laundries.each do |laundry| %>
+      <tr>
+        <td><%= laundry.name %></td>
+        <td><%= laundry.score %></td>
+        <td><%= laundry.address %></td>
+        <td><%= laundry.address_details %></td>
+        <td><%= laundry.city %></td>
+        <td><%= laundry.logo %></td>
+        <td><%= laundry.cover %></td>
+        <td><%= laundry.location %></td>
+        <td><%= link_to 'Show', laundry %></td>
+        <td><%= link_to 'Edit', edit_laundry_path(laundry) %></td>
+        <td><%= link_to 'Destroy', laundry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Laundry', new_laundry_path %>

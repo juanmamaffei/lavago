@@ -1,0 +1,67 @@
+<%= form_with(model: order, local: true) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :order_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :drop_status %>
+    <%= form.number_field :drop_status, id: :order_drop_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :drop_data %>
+    <%= form.text_field :drop_data, id: :order_drop_data %>
+  </div>
+
+  <div class="field">
+    <%= form.label :drop_carrier %>
+    <%= form.number_field :drop_carrier, id: :order_drop_carrier %>
+  </div>
+
+  <div class="field">
+    <%= form.label :wash_status %>
+    <%= form.number_field :wash_status, id: :order_wash_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :wash_data %>
+    <%= form.text_field :wash_data, id: :order_wash_data %>
+  </div>
+
+  <div class="field">
+    <%= form.label :delivery_carrier %>
+    <%= form.number_field :delivery_carrier, id: :order_delivery_carrier %>
+  </div>
+
+  <div class="field">
+    <%= form.label :suscription %>
+    <%= form.text_field :suscription, id: :order_suscription %>
+  </div>
+
+  <div class="field">
+    <%= form.label :calification_score %>
+    <%= form.number_field :calification_score, id: :order_calification_score %>
+  </div>
+
+  <div class="field">
+    <%= form.label :calification_comment %>
+    <%= form.text_field :calification_comment, id: :order_calification_comment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @laundry.name %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @laundry.score %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @laundry.address %>
+</p>
+
+<p>
+  <strong>Address details:</strong>
+  <%= @laundry.address_details %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @laundry.city %>
+</p>
+
+<p>
+  <strong>Logo:</strong>
+  <%= @laundry.logo %>
+</p>
+
+<p>
+  <strong>Cover:</strong>
+  <%= @laundry.cover %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @laundry.location %>
+</p>
+
+<%= link_to 'Edit', edit_laundry_path(@laundry) %> |
+<%= link_to 'Back', laundries_path %>

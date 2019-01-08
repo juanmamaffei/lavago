@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @order.user %>
+</p>
+
+<p>
+  <strong>Drop status:</strong>
+  <%= @order.drop_status %>
+</p>
+
+<p>
+  <strong>Drop data:</strong>
+  <%= @order.drop_data %>
+</p>
+
+<p>
+  <strong>Drop carrier:</strong>
+  <%= @order.drop_carrier %>
+</p>
+
+<p>
+  <strong>Wash status:</strong>
+  <%= @order.wash_status %>
+</p>
+
+<p>
+  <strong>Wash data:</strong>
+  <%= @order.wash_data %>
+</p>
+
+<p>
+  <strong>Delivery carrier:</strong>
+  <%= @order.delivery_carrier %>
+</p>
+
+<p>
+  <strong>Suscription:</strong>
+  <%= @order.suscription %>
+</p>
+
+<p>
+  <strong>Calification score:</strong>
+  <%= @order.calification_score %>
+</p>
+
+<p>
+  <strong>Calification comment:</strong>
+  <%= @order.calification_comment %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

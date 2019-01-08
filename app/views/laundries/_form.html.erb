@@ -1,0 +1,57 @@
+<%= form_with(model: laundry, local: true) do |form| %>
+  <% if laundry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(laundry.errors.count, "error") %> prohibited this laundry from being saved:</h2>
+
+      <ul>
+      <% laundry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :laundry_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :score %>
+    <%= form.number_field :score, id: :laundry_score %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, id: :laundry_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address_details %>
+    <%= form.text_field :address_details, id: :laundry_address_details %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, id: :laundry_city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :logo %>
+    <%= form.text_field :logo, id: :laundry_logo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cover %>
+    <%= form.text_field :cover, id: :laundry_cover %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location, id: :laundry_location %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
