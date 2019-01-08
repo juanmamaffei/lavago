@@ -1,0 +1,42 @@
+<%= form_with(model: carrier, local: true) do |form| %>
+  <% if carrier.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(carrier.errors.count, "error") %> prohibited this carrier from being saved:</h2>
+
+      <ul>
+      <% carrier.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :delivery_zone %>
+    <%= form.text_field :delivery_zone, id: :carrier_delivery_zone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :delivery_excluded %>
+    <%= form.text_field :delivery_excluded, id: :carrier_delivery_excluded %>
+  </div>
+
+  <div class="field">
+    <%= form.label :exclusive %>
+    <%= form.text_field :exclusive, id: :carrier_exclusive %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :carrier_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :carrier_description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

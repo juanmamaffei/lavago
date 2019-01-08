@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Delivery zone:</strong>
+  <%= @carrier.delivery_zone %>
+</p>
+
+<p>
+  <strong>Delivery excluded:</strong>
+  <%= @carrier.delivery_excluded %>
+</p>
+
+<p>
+  <strong>Exclusive:</strong>
+  <%= @carrier.exclusive %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @carrier.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @carrier.description %>
+</p>
+
+<%= link_to 'Edit', edit_carrier_path(@carrier) %> |
+<%= link_to 'Back', carriers_path %>

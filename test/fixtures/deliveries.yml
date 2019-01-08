@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  carrier: one
+  type: 1
+  price: 1
+  status: 1
+  address: MyString
+  address_details: MyString
+  city: MyString
+  location: 
+
+two:
+  name: MyString
+  carrier: two
+  type: 1
+  price: 1
+  status: 1
+  address: MyString
+  address_details: MyString
+  city: MyString
+  location: 

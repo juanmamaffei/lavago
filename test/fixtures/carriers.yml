@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  delivery_zone: 
+  delivery_excluded: 
+  exclusive: 
+  name: MyString
+  description: MyString
+
+two:
+  delivery_zone: 
+  delivery_excluded: 
+  exclusive: 
+  name: MyString
+  description: MyString

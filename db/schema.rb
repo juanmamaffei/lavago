@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190108131447) do
+ActiveRecord::Schema.define(version: 20190108135633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carriers", force: :cascade do |t|
+    t.json "delivery_zone"
+    t.json "delivery_excluded"
+    t.integer "exclusive", default: 0
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "deliveries", force: :cascade do |t|
+    t.string "name"
+    t.bigint "carrier_id"
+    t.integer "type"
+    t.integer "price"
+    t.integer "status"
+    t.string "address"
+    t.string "address_details"
+    t.string "city"
+    t.json "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["carrier_id"], name: "index_deliveries_on_carrier_id"
+  end
 
   create_table "laundries", force: :cascade do |t|
     t.string "name"
@@ -93,6 +118,7 @@ ActiveRecord::Schema.define(version: 20190108131447) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "deliveries", "carriers"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "laundries"
   add_foreign_key "suscriptions", "users"
