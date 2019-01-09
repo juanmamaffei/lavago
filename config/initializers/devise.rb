@@ -18,7 +18,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'juanmanuel@lavago.click'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -257,7 +257,16 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  
+  # Add the credentials from your Google application to your secrets
+  
+  # Configure Google omniauth with proper scope
+  #config.omniauth :google_oauth2, client_id, client_secret, {
+  #  scope: "contacts.readonly,userinfo.email, userinfo.profile, user.addresses.read, user.birthday.read"
+  #}
 
+  config.omniauth :google_oauth2, "694705494129-gnt88d947ufril40gkj6qtsgl3mp5bq6.apps.googleusercontent.com", "C7ZMxrlOWUX1Fbx82NcAfeWn", {scope: "contacts.readonly,userinfo.email, userinfo.profile, user.addresses.read, user.birthday.read"}
+  config.omniauth :facebook, "609363429500489", "7c9e711bd071aa4690cb633ddcefaa39" #, token_params: { parse: :json }
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

@@ -37,8 +37,9 @@ gem 'jbuilder', '~> 2.5'
 
 
 gem 'devise'
-
-
+gem 'omniauth-google-oauth2'
+gem 'activerecord-session_store'
+gem 'omniauth-facebook'
 
 
 
