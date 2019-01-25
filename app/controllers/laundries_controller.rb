@@ -2,6 +2,11 @@ class LaundriesController < ApplicationController
   before_action :set_laundry, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: :show
 
+  # antes de guardar que busque las coordenadas acá
+  # https://maps.googleapis.com/maps/api/geocode/json?address=#{VARIABLECONLOQUEPUSOELUSER+,ROSARIO}&key=AIzaSyAP9BJ5wfeQ23i_gVQe0tbczeHcIcKNLWQ
+  # o este otro que es open source
+  # https://nominatim.openstreetmap.org/search?q=#{VARIABLECONLOQUEPUSOELUSER+,ROSARIO}&format=json
+  
   # GET /laundries
   # GET /laundries.json
   def index
