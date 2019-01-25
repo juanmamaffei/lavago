@@ -12,7 +12,7 @@
 
 <p>
   <strong>Type:</strong>
-  <%= @delivery.type %>
+  <%= @delivery.delivery_type %>
 </p>
 
 <p>
@@ -45,5 +45,5 @@
   <%= @delivery.location %>
 </p>
 
-<%= link_to 'Edit', edit_delivery_path(@delivery) %> |
-<%= link_to 'Back', deliveries_path %>
+<%= link_to 'Edit', edit_order_delivery_path(@delivery) %> |
+<%= link_to 'Back', order_deliveries_path %>

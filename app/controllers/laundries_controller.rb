@@ -1,5 +1,6 @@
 class LaundriesController < ApplicationController
   before_action :set_laundry, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: :show
 
   # GET /laundries
   # GET /laundries.json

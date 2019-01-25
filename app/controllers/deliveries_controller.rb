@@ -1,6 +1,9 @@
 class DeliveriesController < ApplicationController
   before_action :set_delivery, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
+
+  
   # GET /deliveries
   # GET /deliveries.json
   def index
@@ -28,7 +31,7 @@ class DeliveriesController < ApplicationController
 
     respond_to do |format|
       if @delivery.save
-        format.html { redirect_to @delivery, notice: 'Delivery was successfully created.' }
+        format.html { redirect_to order_delivery_path(params[:order_id], @delivery), notice: 'Delivery was successfully created.' }
         format.json { render :show, status: :created, location: @delivery }
       else
         format.html { render :new }
@@ -56,7 +59,7 @@ class DeliveriesController < ApplicationController
   def destroy
     @delivery.destroy
     respond_to do |format|
-      format.html { redirect_to deliveries_url, notice: 'Delivery was successfully destroyed.' }
+      format.html { redirect_to order_deliveries_path, notice: 'Delivery was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +72,6 @@ class DeliveriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def delivery_params
-      params.require(:delivery).permit(:name, :carrier_id, :type, :price, :status, :address, :address_details, :city, :location)
+      params.require(:delivery).permit(:name, :carrier_id, :delivery_type, :price, :status, :address, :address_details, :city, :location)
     end
 end

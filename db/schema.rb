@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190109143352) do
+ActiveRecord::Schema.define(version: 20190125035952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,12 +23,12 @@ ActiveRecord::Schema.define(version: 20190109143352) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "admin_user"
   end
 
   create_table "deliveries", force: :cascade do |t|
     t.string "name"
     t.bigint "carrier_id"
-    t.integer "type"
     t.integer "price"
     t.integer "status"
     t.string "address"
@@ -37,7 +37,10 @@ ActiveRecord::Schema.define(version: 20190109143352) do
     t.json "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "order_id"
+    t.integer "delivery_type"
     t.index ["carrier_id"], name: "index_deliveries_on_carrier_id"
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 
   create_table "laundries", force: :cascade do |t|
@@ -51,6 +54,7 @@ ActiveRecord::Schema.define(version: 20190109143352) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "admin_user"
   end
 
   create_table "orders", force: :cascade do |t|

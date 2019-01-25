@@ -1,5 +1,8 @@
 class CarriersController < ApplicationController
   before_action :set_carrier, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  #También se debe verificar que se trate de un ADMINISTRADOR PARA ACCEDER A ALGUNAS FUNCIONES
+  # o que se trate del propio dueño del CARRIER para que se puedan realizar todas las acciones.
 
   # GET /carriers
   # GET /carriers.json

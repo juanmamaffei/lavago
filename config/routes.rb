@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  resources :deliveries
+  
   resources :carriers
   resources :products
   resources :suscriptions
   resources :laundries
-  resources :orders
+  resources :orders do
+    resources :deliveries
+  end
   get 'home/index'
 
   devise_for :users, :controllers => { omniauth_callbacks: "users/omniauth_callbacks" }

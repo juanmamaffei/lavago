@@ -3,7 +3,7 @@ class Order < ApplicationRecord
 
   # Relaciones agregadas
   has_many :products
-  belongs_to :suscriptions
+  # belongs_to :suscriptions
   has_one :laundry
   has_many :carriers
 
