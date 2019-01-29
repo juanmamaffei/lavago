@@ -1,0 +1,1 @@
+window.tkS2331458344q = document.querySelector('meta[name="csrf-token"]').content;
