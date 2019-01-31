@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   
   # get 'home/index'
 
+  resources :profiles, as: :users, only: [:update]
+
   devise_for :users, :controllers => {
     omniauth_callbacks: "users/omniauth_callbacks",
     sessions: 'users/sessions',

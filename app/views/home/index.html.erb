@@ -1,3 +1,5 @@
+<%= react_component("Profile", @user) %>
+
 <p>
     <%= if user_signed_in? then link_to('Cerrar sesión', destroy_user_session_path, method: :delete) else link_to('Iniciar sesión', new_user_session_path) end %>
 </p>
@@ -24,38 +26,6 @@ Datos personales
   <li>Puntaje por tus pedidos: <%= @user.score %></li>
  
 </ul>
-<script type="javascript">
-// Define your product name and version
-tomtom.setProductInfo('Codepen Examples', '4.46.3');
-var map, marker;
-// Setting TomTom keys
-tomtom.key('6fEWMnnxWPDJ3BpQGKffuMUlyQiBlUlu');
-tomtom.searchKey('6fEWMnnxWPDJ3BpQGKffuMUlyQiBlUlu');
-//Creating the map
-map = tomtom.map('map', {
-    source: 'vector',
-    basePath: 'https://api.tomtom.com/maps-sdk-js/4.46.3/examples/sdk'
-}).setView([52.373154, 4.890659], 14);
-// Adding marker to the map
-marker = tomtom.L.marker([52.373154, 4.890659], {
-    draggable: true
-}).bindPopup('Amsterdam').addTo(map);
-// Show popup each time the marker is moved
-marker.on('dragend', function(e) {
-    tomtom.reverseGeocode({position: e.target.getLatLng()})
-        .go(function(response) {
-            if (response && response.address && response.address.freeformAddress) {
-                marker.setPopupContent(response.address.freeformAddress);
-            } else {
-                marker.setPopupContent('No results found');
-            }
-            marker.openPopup();
-        });
-});
-
-
- </script>
-<div id="map" class='use-all-space'> </div>
 <!--- MAPA
     <div id="map"></div>
     <script>

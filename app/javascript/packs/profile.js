@@ -6,26 +6,46 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import { CardContent } from '@material-ui/core';
 import reqwest from 'reqwest';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 class Profile extends React.Component { 
     
     constructor(props){
         super(props);
         this.state= { 
-            name : "",
-            last_name : "",
-            address : "",
-            address_details : "",
-            city : "",
+            name : this.props.name,
+            last_name : this.props.last_name,
+            address : this.props.address,
+            address_details : this.props.address_details,
+            city : this.props.city,
+            open:false,
+            error: '',
         }
         this.editPost = this.editPost.bind(this);
-        // this.searchMap = this.searchMap.bind(this);
-        // console.log(this.props);
     }
     
+    componentDidMount(){
+        this.searchMap();
+    }
     editPost(e){
         e.preventDefault();
-        console.log("Se está submiteando")
+
+        reqwest({
+            url: '/profiles/'+ this.props.id,
+            method: 'PATCH',
+            data: { 
+                id: this.props.id, authenticity_token: window.tkS2331458344q,
+                user: {
+                    name: this.state.name,
+                    last_name : this.state.last_name,
+                    address : this.state.address,
+                    address_details : this.state.address_details,
+                    city : this.state.city,
+                },
+            headers: { 'Content-Type': 'application/json' },
+            },
+        }).then((data)=>{console.log("Correcto."); window.location.reload();}).catch(err=> {  this.setState({error: err, open:true})});
     }
     
     syncField(evento, campo){
@@ -36,12 +56,10 @@ class Profile extends React.Component {
         jS[campo] = value;
 
         this.setState(jS);
-        console.log(this.state);
 
     }
     searchMap(){
-        // Buscar this.state.address en el mapa
-        // https://nominatim.openstreetmap.org/search?q=#{this.state.address},#{this.state.city}&format=json
+
         var quer=this.state.address + ", " + this.state.city + ", Argentina"
         reqwest(
             { url: 'https://nominatim.openstreetmap.org/search',
@@ -51,19 +69,18 @@ class Profile extends React.Component {
                 format: 'json'
             }
         }
-        ).then(data=>{this.downloadMap(data)}).catch(err => {console.log(err)});
-        // console.log("submit!")
+        ).then(data=>{this.downloadMap(data)}).catch(err=> {  this.setState({error: err, open:true})});
 
     }
     downloadMap(data){
-         console.log(data);
+         
         // Comprobar cantidad de resultados disponibles, y dar a elegir al usuario.
         // Por elmo se mostrará el mapa del lugar 0 (mejor coincidencia)
         let coord = {};
         coord= data['0']['boundingbox'];
         
         let coordinates = data['0'].lon + "," + data['0'].lat;
-        console.log(coordinates);
+        
         reqwest({
             url: 'http://api.tomtom.com/map/1/staticimage',
             method: 'GET',
@@ -79,12 +96,26 @@ class Profile extends React.Component {
                 // view: 'AR',
             },
             
-        }).then(data=>{ this.setState({mapa: data.responseURL});}).catch(err=> { console.log(err)});
+        }).then(data=>{ this.setState({mapa: data.responseURL});}).catch(err=> {  this.setState({error: err, open:true})});
     }
     render(){
         return(
         <Grid container>
             <Grid item xs={12}>
+                <Snackbar
+                    open={ this.state.open}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                        }}
+                    autoHideDuration={3000}
+                >
+                    
+                    <SnackbarContent
+                        classes={{root: 'background-color: red'}}
+                        aria-describedby="client-snackbar"
+                        message= { this.state.error }
+                    /></Snackbar>
                 <Card><CardContent>
                     <form onSubmit={this.editPost}>
                         <div className="field-profile">
