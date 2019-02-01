@@ -8,6 +8,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'registration' %>
     <%= javascript_pack_tag 'profile'%>
+    <%= javascript_pack_tag 'application'%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Muli|Open+Sans" rel="stylesheet">
 
@@ -17,7 +18,7 @@
   <body>
     <!--- <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p> --->
-
+    <%= if user_signed_in? then react_component("Application") end %>
     <%= yield %>
   </body>
 </html>
