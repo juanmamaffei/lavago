@@ -6,6 +6,7 @@
 
   height: 100vh;
   // background-color: #5506C1;
+  position: absolute;
 }
 body{
   font-family: 'Muli', sans-serif;
@@ -62,4 +63,19 @@ a{
   z-index: 5;
   display: table-cell;
   vertical-align: middle;
+}
+.fabs{
+  margin: 0;
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+  z-index: 10;
+}
+.lbn{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  z-index: 3;
 }
