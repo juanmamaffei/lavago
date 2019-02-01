@@ -1,7 +1,8 @@
 class LaundriesController < ApplicationController
   before_action :set_laundry, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: :show
-
+  require "rubygems"
+  require "geokit"
   # antes de guardar que busque las coordenadas acá
   # https://maps.googleapis.com/maps/api/geocode/json?address=#{VARIABLECONLOQUEPUSOELUSER+,ROSARIO}&key=AIzaSyAP9BJ5wfeQ23i_gVQe0tbczeHcIcKNLWQ
   # o este otro que es open source
@@ -11,6 +12,29 @@ class LaundriesController < ApplicationController
   # GET /laundries.json
   def index
     @laundries = Laundry.all
+
+
+
+    @dispLaundries = []
+    @laundries.each do |laundry|
+      unless laundry.coverage_area==nil
+        cober = ActiveSupport::JSON.decode laundry.coverage_area
+        points = []
+        cober.each do |point|
+          lat = point["lat"]
+          lon = point["lon"]
+          points << Geokit::LatLng.new(lat, lon)
+        end
+        coverage = Geokit::Polygon.new(points)
+          client_location = Geokit::LatLng.new(params[:lat],params[:lon])
+          if(coverage.contains? client_location)==true
+            @dispLaundries << laundry.clone
+          end
+      
+        
+      end
+    end
+        
   end
 
   # GET /laundries/1
@@ -75,6 +99,6 @@ class LaundriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def laundry_params
-      params.require(:laundry).permit(:name, :score, :address, :address_details, :city, :logo, :cover, :location)
+      params.require(:laundry).permit(:name, :score, :address, :address_details, :city, :logo, :cover, :coverage_area)
     end
 end

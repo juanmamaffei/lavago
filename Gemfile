@@ -40,6 +40,7 @@ gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'activerecord-session_store'
 gem 'omniauth-facebook'
+gem 'geokit'
 
 # gem 'webpacker'
 gem 'webpacker-react', '~> 0.3.1'

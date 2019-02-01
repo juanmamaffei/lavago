@@ -1,1 +1,1 @@
-json.array! @laundries, partial: 'laundries/laundry', as: :laundry
+json.array! @dispLaundries, partial: 'laundries/laundry', as: :laundry
