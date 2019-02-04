@@ -8,19 +8,19 @@ import { CardContent } from '@material-ui/core';
 import reqwest from 'reqwest';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 class Profile extends React.Component { 
     
     constructor(props){
         super(props);
-        this.state= { 
-            name : this.props.name,
-            last_name : this.props.last_name,
-            address : this.props.address,
-            address_details : this.props.address_details,
-            city : this.props.city,
-            open:false,
-            error: '',
+        this.state= {
+            name: this.props.name,
+            last_name: this.props.last_name,
+            address: this.props.address,
+            address_details: this.props.address_details,
+            city: this.props.city,
         }
         this.editPost = this.editPost.bind(this);
     }
@@ -32,10 +32,10 @@ class Profile extends React.Component {
         e.preventDefault();
 
         reqwest({
-            url: '/profiles/'+ this.props.id,
+            url: '/profiles/'+ this.state.id,
             method: 'PATCH',
             data: { 
-                id: this.props.id, authenticity_token: window.tkS2331458344q,
+                id: this.state.id, authenticity_token: window.tkS2331458344q,
                 user: {
                     name: this.state.name,
                     last_name : this.state.last_name,
@@ -100,8 +100,8 @@ class Profile extends React.Component {
     }
     render(){
         return(
-        <Grid container>
-            <Grid item xs={12}>
+        <Grid container alignContent="center" justify="center">
+            <Grid item xs={12} lg={4} md={6}>
                 <Snackbar
                     open={ this.state.open}
                     anchorOrigin={{
@@ -138,13 +138,18 @@ class Profile extends React.Component {
                             className="text-profile"
                         /></div>
                         <div className="field-profile">
-                        <TextField onChange={ (e)=> this.syncField(e, 'city') } required
+                        <Select onChange={ (e)=> this.syncField(e, 'city') } required
                             label = "Ciudad" 
-                            variant="outlined"
+                            native
+                            input={
+                                <OutlinedInput
+                                  name="city"
+                                  labelWidth={0}                                  
+                                />}
                             margin="dense"   
                             value = { this.state.city }
                             className="text-profile"
-                        /></div>
+                        ><option value="Rosario">Rosario</option></Select></div>
                         <div className="field-profile">
                         <TextField onChange={ (e)=> this.syncField(e, 'address') } required onBlur={ (a)=>{this.searchMap(a)}}
                             label = "Tu dirección"
@@ -169,13 +174,15 @@ class Profile extends React.Component {
                     </form>
                 </CardContent>
                 </Card>
-                <Card>
-                <CardContent>
+            </Grid>
+                <Grid item xs={12} lg={4} md={6}>
+                    <Card>
+                    <CardContent>
 
-                    <div className="field-profile"><h3>Tu ubicación</h3></div>
-                        <div className="mapContainer"><div className="mapMarker">&#x25B2;</div><img src= {this.state.mapa} className="mapa"></img></div>
-                </CardContent>
-                </Card>
+                        <div className="field-profile"><h3>Tu ubicación</h3></div>
+                            <div className="mapContainer"><div className="mapMarker">&#x25B2;</div><img src= {this.state.mapa} className="mapa"></img></div>
+                    </CardContent>
+                    </Card>
             </Grid>
         </Grid>);
     }

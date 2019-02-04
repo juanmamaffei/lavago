@@ -3,10 +3,10 @@
     color: white;
 }
 .pantalla-completa{
-
   height: 100vh;
   // background-color: #5506C1;
   position: absolute;
+  width: 100%;
 }
 body{
   font-family: 'Muli', sans-serif;
@@ -77,5 +77,8 @@ a{
   position: fixed;
   bottom: 0px;
   width: 100%;
-  z-index: 3;
+  z-index: 6;
+}
+.contAiner{
+  padding-top: 5em;
 }
