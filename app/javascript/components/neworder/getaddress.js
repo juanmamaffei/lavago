@@ -16,14 +16,14 @@ class GetAddress extends React.Component {
         super(props);
         this.state = { 
             city: "",
-            address: "",
+            address: this.props.address,
+            test_address: "Estado default",
         }
 
+        //Testeando el flujo de trabajo con Redux
         store.subscribe(()=>{
-            this.setState({
-                address: store.getState().currentUser.address,
-            })
-        });
+            this.setState({ test_address : store.getState().def_address })
+        })
     
     }
     syncField(evento, campo){
@@ -35,10 +35,15 @@ class GetAddress extends React.Component {
 
             this.setState(jS);
             // console.log(store.getState());
-        }
+    }
+    defAddress(def_address){
+        store.dispatch({type: 'UPDATE_ADDRESS', def_address});
+        console.log(store.getState());
+    }
     render(){
             return(
             <Grid container alignContent="center" justify="center">
+                <h1>{this.state.test_address}</h1>
                 <Grid item xs={12} lg={4} md={6}>
                     <Card><CardContent>
                     <form onSubmit={this.editPost}>
@@ -56,7 +61,10 @@ class GetAddress extends React.Component {
                             className="text-profile"
                         ><option value="Rosario">Rosario</option></Select></div>
                     <div className="field-profile">
-                    <TextField onChange={ (e)=> this.syncField(e, 'address') } required
+                    <TextField 
+                        onChange={ (e)=> this.syncField(e, 'address') }
+                        onBlur={()=>this.defAddress(this.state.address)}
+                        required
                         label = "Tu dirección"
                         variant="outlined"
                         margin="dense"    

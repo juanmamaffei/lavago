@@ -10,7 +10,7 @@ class NewOrder extends React.Component{
         return(<div>
             
             <p>1) Solicitar dirección y localidad (por defecto Rosario)</p>
-            <GetAddress />
+            <GetAddress address="default" />
             <p>Pedir confirmación de dirección (con imagen de mapa) y en su defecto, solicitar ubicación</p>
             <p>Mostrar lavanderías disponibles</p>
             <p>Mostrar productos disponibles</p>

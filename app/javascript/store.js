@@ -18,9 +18,7 @@ const reducer = (state={}, action) => {
         case "UPDATE_ADDRESS":{
             return {
                 ...state,
-                currentUser: {
-                    address: action.address
-                }
+                def_address: action.def_address
             }
         }
         default : {
@@ -29,4 +27,4 @@ const reducer = (state={}, action) => {
     }
 }
 
-export default createStore(reducer, {currentUser:{id: "", name: "", last_name: "", address: "", address_details: "", city: ""}});
+export default createStore(reducer);
