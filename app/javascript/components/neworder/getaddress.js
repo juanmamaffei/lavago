@@ -15,16 +15,11 @@ class GetAddress extends React.Component {
     constructor(props){
         super(props);
         this.state = { 
-            city: "",
+            city: "Rosario",
             address: this.props.address,
-            test_address: "Estado default",
         }
 
-        //Testeando el flujo de trabajo con Redux
-        store.subscribe(()=>{
-            this.setState({ test_address : store.getState().def_address })
-        })
-    
+        this.startNewOrder = this.startNewOrder.bind(this);
     }
     syncField(evento, campo){
             let element = evento.target;
@@ -34,19 +29,22 @@ class GetAddress extends React.Component {
             jS[campo] = value;
 
             this.setState(jS);
-            // console.log(store.getState());
+            console.log(this.state);
     }
-    defAddress(def_address){
-        store.dispatch({type: 'UPDATE_ADDRESS', def_address});
+    submit(evento){
+        evento.preventDefault();
+        this.startNewOrder(this.state);
+    }
+    startNewOrder(data){
+        store.dispatch({type: 'START_NEW_ORDER', city:data.city, address:data.address, step: "VER_MAPA"});
         console.log(store.getState());
     }
     render(){
             return(
             <Grid container alignContent="center" justify="center">
-                <h1>{this.state.test_address}</h1>
                 <Grid item xs={12} lg={4} md={6}>
                     <Card><CardContent>
-                    <form onSubmit={this.editPost}>
+                    <form onSubmit={(e)=>this.submit(e)}>
                     <div className="field-profile">
                         <Select onChange={ (e)=> this.syncField(e, 'city') } required
                             label = "Ciudad" 
@@ -63,7 +61,7 @@ class GetAddress extends React.Component {
                     <div className="field-profile">
                     <TextField 
                         onChange={ (e)=> this.syncField(e, 'address') }
-                        onBlur={()=>this.defAddress(this.state.address)}
+                        // onBlur={()=>this.startNewOrder(this.state.address)}
                         required
                         label = "Tu dirección"
                         variant="outlined"
@@ -72,7 +70,7 @@ class GetAddress extends React.Component {
                         className="text-profile"
                     /></div>
                     <div className="field-profile">
-                            <Button variant="contained" color="primary" type="submit" className="button-profile"> Siguiente</Button>
+                            <Button variant="contained" color="secondary" type="submit" className="button-profile"> Siguiente</Button>
                         </div>
                     </form>
                     </CardContent>

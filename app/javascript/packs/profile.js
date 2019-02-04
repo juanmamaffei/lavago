@@ -20,7 +20,7 @@ class Profile extends React.Component {
             last_name: this.props.last_name,
             address: this.props.address,
             address_details: this.props.address_details,
-            city: this.props.city,
+            city: "Rosario",
         }
         this.editPost = this.editPost.bind(this);
     }
@@ -69,7 +69,7 @@ class Profile extends React.Component {
                 format: 'json'
             }
         }
-        ).then(data=>{this.downloadMap(data)}).catch(err=> {  this.setState({error: err, open:true})});
+        ).then(data=>{this.downloadMap(data); console.log(this.state)}).catch(err=> {  this.setState({error: err, open:true})});
 
     }
     downloadMap(data){

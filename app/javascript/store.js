@@ -1,5 +1,9 @@
 import { createStore } from 'redux';
 
+
+
+
+
 const reducer = (state={}, action) => {
     switch(action.type){
         case "LOAD_CURRENT_USER":{
@@ -15,10 +19,24 @@ const reducer = (state={}, action) => {
                 },
             }
         }
-        case "UPDATE_ADDRESS":{
-            return {
+        case "START_NEW_ORDER":{
+
+            return{
                 ...state,
-                def_address: action.def_address
+                newOrder: {
+                    city: action.city,
+                    address: action.address,
+                    step: action.step,
+
+                }
+            }
+        }
+        case "STOP_SEARCHING_MAP":{
+            return{
+                ...state,
+                newOrder: {
+                    step: "MAPA_OK"
+                }
             }
         }
         default : {
