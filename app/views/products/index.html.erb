@@ -28,9 +28,9 @@
         <td><%= product.picture %></td>
         <td><%= product.score %></td>
         <td><%= product.only_for_suscriptions %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', laundry_products_path(params[:laundry_id] , product.id) %></td>
+        <td><%= link_to 'Edit', edit_laundry_product_path(params[:laundry_id] , product.id) %></td>
+        <td><%= link_to 'Destroy', laundry_product_path(params[:laundry_id] , product.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,4 +38,4 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<%= link_to 'New Product', new_laundry_product_path %>

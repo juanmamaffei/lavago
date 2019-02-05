@@ -36,6 +36,7 @@ class GetMap extends React.Component{
         this.downloadMap = this.downloadMap.bind(this);
         this.useLocation = this.useLocation.bind(this);
         this.successMap = this.successMap.bind(this);
+        this.comeBack = this.comeBack.bind(this);
     }
 
     submit(evento){
@@ -54,7 +55,10 @@ class GetMap extends React.Component{
         store.dispatch({type: 'CONFIRM_ADDRESS', lat:this.state.lat, lon:this.state.lon, laundriesResult, step: "VIEW_LAUNDRIES"});
         console.log(store.getState());
     }
-
+    comeBack(a){
+        a.preventDefault();
+        store.dispatch({type:"START_NEW_ORDER", step: ""});
+    }
 
     searchMap(){
 
@@ -151,18 +155,21 @@ class GetMap extends React.Component{
                     <Card><CardContent>
                         <h2>¿Es acá?</h2>
                     <form onSubmit={(e)=>this.submit(e)}>
-                    
+                    <div className="field-profile">
+                        <Button variant="contained" color="secondary" type="submit" className="button-profile"> Sí! Ahí está mi casa!</Button>
+                    </div>
+                    <div className="field-profile">
+                        <Button variant="contained" color="primary" onClick={(a)=>{this.useLocation(a)}} className="button-profile"> Prefiero usar mi ubicación</Button>
+                    </div>
+                    <div className="field-profile">
+                        <Button variant="contained" color="default" onClick={(a)=>{this.comeBack(a)}} className="button-profile"> Corregir dirección</Button>
+                    </div>
                     <div className="mapContainer">
                         <div className="mapMarker">&#x25B2;</div>
                         <CircularProgress color="secondary" className="preloader" />
                         <img src= {this.state.mapa} className="mapa"></img>
                     </div>
-                    <div className="field-profile">
-                        <Button variant="contained" color="secondary" type="submit" className="button-profile"> Correcto! Siguiente!</Button>
-                    </div>
-                    <div className="field-profile">
-                        <Button variant="contained" color="primary" onClick={(a)=>{this.useLocation(a)}} className="button-profile"> Prefiero usar mi ubicación</Button>
-                    </div>
+                    
                     </form>
                     </CardContent>
                     </Card>

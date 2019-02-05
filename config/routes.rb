@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   
   resources :carriers
-  resources :products
   resources :suscriptions
-  resources :laundries
+  resources :laundries do
+    resources :products
+  end
   resources :orders do
     resources :deliveries
   end

@@ -42,12 +42,7 @@ class NewOrder extends React.Component{
     render(){
         return(<div>
             <ToggleComponents step={this.state.step} address={this.props.address} newOrder={this.state.newOrder} laundriesResult={this.state.laundriesResult}/>
-            <p>Mostrar productos disponibles</p>
-            <p>Mostrar horarios de retiro</p>
-            <p>Mostrar horarios de entrega</p>
-            <p>Elegir medio de pago</p>
-            <p>confirmación</p>
-
+            
         </div>);
     }
 }
