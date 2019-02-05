@@ -1,9 +1,5 @@
 import { createStore } from 'redux';
 
-
-
-
-
 const reducer = (state={}, action) => {
     switch(action.type){
         case "LOAD_CURRENT_USER":{
@@ -24,6 +20,7 @@ const reducer = (state={}, action) => {
             return{
                 ...state,
                 newOrder: {
+                    ...state.newOrder,
                     city: action.city,
                     address: action.address,
                     step: action.step,
@@ -35,10 +32,24 @@ const reducer = (state={}, action) => {
             return{
                 ...state,
                 newOrder: {
+                    ...state.newOrder,
                     step: "MAPA_OK"
                 }
             }
         }
+        case "CONFIRM_ADDRESS": {
+            return{
+                ...state,
+                newOrder: {
+                    ...state.newOrder,
+                    lat: action.lat,
+                    lon: action.lon,
+                    step: action.step,
+                },
+                laundriesResult: action.laundriesResult,
+            }
+        }
+
         default : {
             return state;
         }

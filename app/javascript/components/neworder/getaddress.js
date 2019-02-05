@@ -29,7 +29,7 @@ class GetAddress extends React.Component {
             jS[campo] = value;
 
             this.setState(jS);
-            console.log(this.state);
+            // console.log(this.state);
     }
     submit(evento){
         evento.preventDefault();
@@ -37,13 +37,14 @@ class GetAddress extends React.Component {
     }
     startNewOrder(data){
         store.dispatch({type: 'START_NEW_ORDER', city:data.city, address:data.address, step: "VER_MAPA"});
-        console.log(store.getState());
+        // console.log(store.getState());
     }
     render(){
             return(
             <Grid container alignContent="center" justify="center">
                 <Grid item xs={12} lg={4} md={6}>
                     <Card><CardContent>
+                        <h2>¿Dónde retiramos tu ropa?</h2>
                     <form onSubmit={(e)=>this.submit(e)}>
                     <div className="field-profile">
                         <Select onChange={ (e)=> this.syncField(e, 'city') } required

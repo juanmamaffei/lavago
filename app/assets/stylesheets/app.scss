@@ -39,17 +39,28 @@ a{
 }
 .mapa{
   // position: absolute;
+  position: relative;
   max-width: 500px;
   width: 100%;
   max-height: 500px;
   max-width: 0px auto;
   float: none;
+  z-index: 1;
+  background-color: black;
 }
+
 .mapContainer{
   position: relative;
   text-align: center;
   border-style: solid 2px;
   display: table;
+  min-height: 100px;
+}
+
+.preloader{
+  position: absolute;
+  top: 10%;
+  z-index: 0;
 }
 .mapMarker{
   position: absolute;
