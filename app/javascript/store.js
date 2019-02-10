@@ -49,7 +49,29 @@ const reducer = (state={}, action) => {
                 laundriesResult: action.laundriesResult,
             }
         }
-
+        case "SELECT_PRODUCT" : {
+            return{
+                ...state,
+                newOrder: {
+                    ...state.newOrder,
+                    step: action.step,
+                },
+                productsResult: action.productsResult,
+            }
+        }
+        case "SHOW_PRODUCTS" : {
+            return{
+                ...state,
+                laundryProducts: action,
+                showProducts: true,
+            }
+        }
+        case "HIDE_PRODUCTS" : {
+            return{
+                ...state,
+                showProducts: false,
+            }
+        }
         default : {
             return state;
         }
