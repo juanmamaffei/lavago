@@ -15,8 +15,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
-import CheckboxList from './selectproduct';
-
+//import CheckboxList from './selectproduct';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import reqwest from 'reqwest';
 import store from '../../store';
 
@@ -43,26 +44,13 @@ function LaundriesList(props) {
         );    
         
         if (laundries.length === 0){
-            return(<p>Disculpános! Todavía no hay lavanderías en tu zona. Te gustaría sugerirnos alguna?</p>);
+            return(<p>Disculpános! Todavía no hay lavanderías que usen Lavago en tu zona. Te gustaría sugerirnos alguna?</p>);
         }
         return (<List component="nav" >{list}</List>);
     }
     return (<h2>No seleccionaste tu ubicación</h2>);
 }
-function ProductsList(props) {
 
-    console.log(props)
-        /* const products = props;
-        const list = products.map((product)=> 
-            <li>{product.name}</li>
-        );    
-        
-        if (products.length === 0){
-            return(<p>No hay productos que mostrar.</p>);
-        }
-        return (<ul>{list}</ul>);
-        */
-}
 function selectLaundry(a,id){
     a.preventDefault();
     let url = "/laundries/" + id + "/products.json"
@@ -71,7 +59,7 @@ function selectLaundry(a,id){
         method: 'get'
     }).then((data)=>{
         loadProducts(data);
-        console.log(data);
+        // console.log(data);
         }
     ).catch((err)=>{console.log(err)});
 }
@@ -82,16 +70,18 @@ function loadProducts(data){
 class ViewLaundries extends React.Component{
     constructor(props){
         super(props);
-        this.state = { step: this.props.newOrder.step, laundriesResult: this.props.laundriesResult , showProducts: false, laundryProducts: {}};
+        this.state = { step: this.props.newOrder.step, laundriesResult: this.props.laundriesResult , showProducts: false, laundryProducts: []};
         store.subscribe(()=>{
             this.setState({
                 laundriesResult: store.getState().laundriesResult,
                 step: store.getState().newOrder.step,
                 showProducts: store.getState().showProducts,
-                laundriesResult: store.getState().laundriesResult
+                laundryProducts: store.getState().laundryProducts,
+                checked: [0],
             })
         })
         // this.selectLaundry = this.selectLaundry.bind(this);
+        this.submit = this.submit.bind(this);
     }
     
 
@@ -100,6 +90,35 @@ class ViewLaundries extends React.Component{
         store.dispatch({ type: "HIDE_PRODUCTS" });
       };
 
+      handleToggle = value => () => {
+        const { checked } = this.state;
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+    
+        if (currentIndex === -1) {
+          newChecked.push(value);
+        } else {
+          newChecked.splice(currentIndex, 1);
+        }
+    
+        
+        this.setState({
+          checked: newChecked,
+        });
+        // checked en esta clase es selectedProducts en el store con la orden type UPDATE_PRODUCTS
+        
+        // store.dispatch({type: "UPDATE_PRODUCTS", selectedProducts: newChecked});
+        // console.log(this.state); 
+      };
+
+      submit(e){
+        e.preventDefault();
+        
+        /* Esta función mete el CHECKED en los productos de NEWORDER en el store,
+        además, cierra el cuadro de diálogo y
+        cambia el STEP para pasar a elegir el envío */
+        store.dispatch({ type: "SUBMIT_PRODUCTS", selectedProducts: this.state.checked})
+      }
     render(){return(
     <Grid container alignContent="center" justify="center">
     <Grid item xs={12} lg={4} md={6}>
@@ -108,18 +127,41 @@ class ViewLaundries extends React.Component{
         <LaundriesList laundriesResult={this.state.laundriesResult} step={this.state.step} />
 
         <Dialog open={this.state.showProducts} >
-        <DialogTitle id="confirmation-dialog-title">Phone Ringtone</DialogTitle>
-        <DialogContent>
-          <ProductsList laundryProducts={this.state.laundryProducts}/>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={()=>{}} color="primary">
-            Encargar!
-          </Button>
-        </DialogActions>
+            <form onSubmit={this.submit}>
+                <DialogTitle id="confirmation-dialog-title">Productos disponibles</DialogTitle>
+                <DialogContent>
+                
+
+
+                    <List >
+                {this.state.laundryProducts.map(value => (
+                <ListItem key={value.id} role={undefined} dense button onClick={this.handleToggle(value)}>
+                    <Checkbox
+                    checked={this.state.checked.indexOf(value) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    />
+                    <ListItemText primary={value.name } />
+                    <ListItemSecondaryAction>
+                    $ {value.price}
+                    </ListItemSecondaryAction>
+                </ListItem>
+                ))}
+                
+            </List>
+
+
+
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+                Cancelar
+            </Button>
+            <Button color="primary" type="submit">
+                Encargar!
+            </Button>
+            </DialogActions>
+        </form>
       </Dialog>
 
 

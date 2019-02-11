@@ -62,7 +62,7 @@ const reducer = (state={}, action) => {
         case "SHOW_PRODUCTS" : {
             return{
                 ...state,
-                laundryProducts: action,
+                laundryProducts: action.laundryProducts,
                 showProducts: true,
             }
         }
@@ -70,6 +70,26 @@ const reducer = (state={}, action) => {
             return{
                 ...state,
                 showProducts: false,
+            }
+        }
+        case "SUBMIT_PRODUCTS" : {
+            if (action.selectedProducts.length == 1) {
+                return{
+                    ...state,
+                    showProducts: false,                    
+                }
+            }
+            else{
+                return{
+                    ...state,
+                    newOrder: {
+                        ...state.newOrder,
+                        products: action.selectedProducts,
+                        step: "SELECT_DROP"
+                    },
+                    showProducts: false,
+                    
+                }    
             }
         }
         default : {

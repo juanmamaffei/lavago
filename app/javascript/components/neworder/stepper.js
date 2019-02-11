@@ -35,6 +35,8 @@ class Stepper extends React.Component{
                 return 2;
             case 'ELEGIR_PRODUCTO':
                 return 3;
+            case 'SELECT_DROP':
+                return 3;
             default:
                 return 0;
         }
@@ -49,10 +51,9 @@ class Stepper extends React.Component{
 
                 <MobileStepper 
                 variant="dots"
-                steps={5}
+                steps={6}
                 position="static"
                 activeStep={this.indentifyActiveStep(this.state.step)}
-                classes= "stepper"
                 /* backButton={
                     <Button size="small">
                     <KeyboardArrowLeft />
