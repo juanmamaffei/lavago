@@ -7,6 +7,7 @@ import ViewLaundries from '../components/neworder/viewlaundries';
 import Stepper from '../components/neworder/stepper';
 
 import store from '../store';
+import SelectDrop from '../components/neworder/selectdrop';
 
 function ToggleComponents(props){
     switch (props.step) {
@@ -19,7 +20,7 @@ function ToggleComponents(props){
         case 'VIEW_LAUNDRIES':
             return(<ViewLaundries laundriesResult={props.laundriesResult} newOrder={props.newOrder}/>);
         case 'SELECT_DROP' : 
-            return (<div>Seleccionar día y hora del retiro de los disponibles por la lavandería.</div>);
+            return (<SelectDrop />);
         default:
             return "Nothing to return..."
     }

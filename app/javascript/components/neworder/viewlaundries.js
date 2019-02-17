@@ -58,19 +58,19 @@ function selectLaundry(a,id){
         url: url,
         method: 'get'
     }).then((data)=>{
-        loadProducts(data);
+        loadProducts(data,id);
         // console.log(data);
         }
     ).catch((err)=>{console.log(err)});
 }
-function loadProducts(data){
-    store.dispatch({ type: "SHOW_PRODUCTS", laundryProducts: data });
+function loadProducts(data,lid){
+    store.dispatch({ type: "SHOW_PRODUCTS", laundryProducts: data, laundryId: lid });
 }
 
 class ViewLaundries extends React.Component{
     constructor(props){
         super(props);
-        this.state = { step: this.props.newOrder.step, laundriesResult: this.props.laundriesResult , showProducts: false, laundryProducts: []};
+        this.state = { step: this.props.newOrder.step, laundriesResult: this.props.laundriesResult , showProducts: false, laundryProducts: [], laundryId: 0};
         store.subscribe(()=>{
             this.setState({
                 laundriesResult: store.getState().laundriesResult,
@@ -78,6 +78,7 @@ class ViewLaundries extends React.Component{
                 showProducts: store.getState().showProducts,
                 laundryProducts: store.getState().laundryProducts,
                 checked: [0],
+                laundryId: store.getState().laundryId
             })
         })
         // this.selectLaundry = this.selectLaundry.bind(this);
@@ -117,7 +118,7 @@ class ViewLaundries extends React.Component{
         /* Esta función mete el CHECKED en los productos de NEWORDER en el store,
         además, cierra el cuadro de diálogo y
         cambia el STEP para pasar a elegir el envío */
-        store.dispatch({ type: "SUBMIT_PRODUCTS", selectedProducts: this.state.checked})
+        store.dispatch({ type: "SUBMIT_PRODUCTS", selectedProducts: this.state.checked, laundryId: this.state.laundryId})
       }
     render(){return(
     <Grid container alignContent="center" justify="center">

@@ -55,6 +55,7 @@ const reducer = (state={}, action) => {
                 newOrder: {
                     ...state.newOrder,
                     step: action.step,
+                   
                 },
                 productsResult: action.productsResult,
             }
@@ -64,6 +65,11 @@ const reducer = (state={}, action) => {
                 ...state,
                 laundryProducts: action.laundryProducts,
                 showProducts: true,
+                newOrder: {
+                    ...state.newOrder,
+                    laundryId: action.laundryId
+                }
+                
             }
         }
         case "HIDE_PRODUCTS" : {
@@ -85,7 +91,8 @@ const reducer = (state={}, action) => {
                     newOrder: {
                         ...state.newOrder,
                         products: action.selectedProducts,
-                        step: "SELECT_DROP"
+                        step: "SELECT_DROP",
+                        
                     },
                     showProducts: false,
                     

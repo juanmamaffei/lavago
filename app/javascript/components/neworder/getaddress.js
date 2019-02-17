@@ -47,6 +47,7 @@ class GetAddress extends React.Component {
                         <h2>¿Dónde retiramos tu ropa?</h2>
                     <form onSubmit={(e)=>this.submit(e)}>
                     <div className="field-profile">
+                        <div className="labelOptions">Localidad *</div>
                         <Select onChange={ (e)=> this.syncField(e, 'city') } required
                             label = "Ciudad" 
                             native

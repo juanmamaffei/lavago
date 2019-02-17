@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  laundry: one
+  carrier: one
+  day: 2019-02-11
+  hour: MyString
+  available: 
+  remaining: 
+  delivery_type: MyString
+
+two:
+  laundry: two
+  carrier: two
+  day: 2019-02-11
+  hour: MyString
+  available: 
+  remaining: 
+  delivery_type: MyString

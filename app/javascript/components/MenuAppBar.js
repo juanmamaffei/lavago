@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import reqwest from 'reqwest';
 //import Link from 'react-router';
+import logoWhite from '../static/logoWhite.png';
 
 const styles = {
   root: {
@@ -71,7 +72,7 @@ class MenuAppBar extends React.Component {
         <AppBar position="fixed" elevation={1}>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" href="/">
-              LAVAGO
+              <img src={ logoWhite } height={50}></img>
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               

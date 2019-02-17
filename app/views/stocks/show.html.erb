@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Laundry:</strong>
+  <%= @stock.laundry %>
+</p>
+
+<p>
+  <strong>Carrier:</strong>
+  <%= @stock.carrier %>
+</p>
+
+
+<p>
+  <strong>Init Hour:</strong>
+  <%= @stock.init_hour %>
+</p>
+
+<p>
+  <strong>Ending Hour:</strong>
+  <%= @stock.ending_hour %>
+</p>
+
+<p>
+  <strong>Available:</strong>
+  <%= @stock.available %>
+</p>
+
+<p>
+  <strong>Remaining:</strong>
+  <%= @stock.remaining %>
+</p>
+
+<p>
+  <strong>Delivery type:</strong>
+  <%= @stock.delivery_type %>
+</p>
+
+<%= link_to 'Edit', edit_stock_path(@stock) %> |
+<%= link_to 'Back', stocks_path %>

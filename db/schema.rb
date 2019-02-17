@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_31_230903) do
+ActiveRecord::Schema.define(version: 2019_02_15_200438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 2019_01_31_230903) do
     t.boolean "only_for_suscriptions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "stock"
+    t.integer "delivery_period"
     t.index ["laundry_id"], name: "index_products_on_laundry_id"
   end
 
@@ -94,6 +96,20 @@ ActiveRecord::Schema.define(version: 2019_01_31_230903) do
     t.datetime "updated_at", null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "stocks", force: :cascade do |t|
+    t.bigint "laundry_id"
+    t.bigint "carrier_id"
+    t.integer "available"
+    t.integer "remaining"
+    t.string "delivery_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "init_hour"
+    t.datetime "ending_hour"
+    t.index ["carrier_id"], name: "index_stocks_on_carrier_id"
+    t.index ["laundry_id"], name: "index_stocks_on_laundry_id"
   end
 
   create_table "suscriptions", force: :cascade do |t|
@@ -137,5 +153,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_230903) do
   add_foreign_key "deliveries", "carriers"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "laundries"
+  add_foreign_key "stocks", "carriers"
+  add_foreign_key "stocks", "laundries"
   add_foreign_key "suscriptions", "users"
 end

@@ -53,7 +53,7 @@ class GetMap extends React.Component{
     }
     startNewOrder(laundriesResult){
         store.dispatch({type: 'CONFIRM_ADDRESS', lat:this.state.lat, lon:this.state.lon, laundriesResult, step: "VIEW_LAUNDRIES"});
-        console.log(store.getState());
+        //console.log(store.getState());
     }
     comeBack(a){
         a.preventDefault();
@@ -132,7 +132,7 @@ class GetMap extends React.Component{
       componentDidMount(){
         if (this.state.step === "VER_MAPA"){
             this.searchMap();
-            console.log("Buscando mapa");
+            //console.log("Buscando mapa");
             store.dispatch({type: "STOP_SEARCHING_MAP"});
         }
         //console.log(this.state.step);
