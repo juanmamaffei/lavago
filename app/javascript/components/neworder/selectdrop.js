@@ -11,6 +11,29 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import store from '../../store';
 
+/*
+
+function CarrierSelect (drops){
+    let items = Object.keys(drops.drops);
+    console.log(drops);
+    let itemsToReturn = items.map((item)=>  <option key={item}>{item}</option>);
+    
+    return(
+    <Select required
+        label = "Retiro por" 
+        native
+        input={
+            <OutlinedInput
+                name="city"
+                labelWidth={0}                                  
+            />}
+        margin="dense"   
+        
+        className="text-profile"
+    >  {itemsToReturn}
+    </Select>);
+}
+*/
 class SelectDrop extends React.Component { 
     constructor(props){
         super(props);
@@ -19,6 +42,9 @@ class SelectDrop extends React.Component {
             day: "",
             hour: "",
             //laundryId: 0,
+            drops: {},
+            daysToReturn: [],
+            hoursToReturn: [],
         }
         /*store.subscribe(()=>{
             this.setState({ laundryId: store.getState().newOrder.laundryId })
@@ -36,26 +62,31 @@ class SelectDrop extends React.Component {
         let drops=[];
         let ulti = {};
         let cid = 0;
-
+        let cname = "";
         do{
+            
             ulti = response.pop();
             cid=ulti.carrier_id;
 
-            if(typeof(drops[cid])=="undefined"){
-                drops[cid]=[];
-                drops[cid].push(ulti);
+            // Agregar los nombres de carrier al id correspondiente en el objeto drops
+            for (var i in carrierList){
+                if (carrierList[i].id==cid){
+                    cname=carrierList[i].name
+                }
+            }
+
+            if(typeof(drops[cname])=="undefined"){
+                drops[cname]=[];
+                drops[cname].push(ulti);
             }
             else {
-                drops[cid].push(ulti);
+                drops[cname].push(ulti);
             }
-            console.log("Estoy adentro del do-while");
-            console.log(response.length);
+            
         } while(response.length>0);
-        console.log(drops);
-        console.log(carrierList);
-
-        // Agregar los nombres de carrier al id correspondiente en el objeto drops
-
+        
+        this.setState({drops: drops});
+        
     }
     getDrops(lid){
         
@@ -86,7 +117,13 @@ class SelectDrop extends React.Component {
             jS[campo] = value;
 
             this.setState(jS);
-            // console.log(this.state);
+            console.log(this.state);
+
+            if (campo == "carrier"){
+                console.log(this.state.drops[this.state.carrier])
+                //this.state.drops[this.state.carrier].map(item=> console.log(item))
+                // this.setState({daysToReturn: this.state.drops[this.state.carrier]});
+            }
     }
     submit(evento){
         evento.preventDefault();
@@ -96,7 +133,15 @@ class SelectDrop extends React.Component {
         store.dispatch({type: 'START_NEW_ORDER', city:data.city, address:data.address, step: "VER_MAPA"});
         // console.log(store.getState());
     }*/
+
+
     render(){
+
+        // Carga de elementos de CARRIER
+        let items = Object.keys(this.state.drops);
+    
+        let itemsToReturn = items.map((item)=>  <option key={item} value={item}>{item}</option>);
+        
             return(
             <Grid container alignContent="center" justify="center">
                 <Grid item xs={12} lg={4} md={6}>
@@ -110,15 +155,15 @@ class SelectDrop extends React.Component {
                             native
                             input={
                                 <OutlinedInput
-                                  name="city"
-                                  labelWidth={0}                                  
+                                    name="Retira"
+                                    labelWidth={0}      
                                 />}
                             margin="dense"   
-                            value = { this.state.city }
+                            value = { this.state.carrier }
                             className="text-profile"
-                        >   <option value="Glovo">Glovo ($35)</option>
-                            <option value="Lavandería">Lavandería (Gratis)</option>
-                        </Select></div>
+                        >  {itemsToReturn}
+                        </Select>
+                        </div>
                     <div className="field-profile">
                     <div className="labelOptions">Día:</div>
                         <Select onChange={ (e)=> this.syncField(e, 'day') } required
@@ -132,9 +177,7 @@ class SelectDrop extends React.Component {
                             margin="dense"   
                             value = { this.state.city }
                             className="text-profile"
-                        ><option value="Glovo">Hoy</option>
-                        <option value="Lavandin">Mañana</option>
-                        </Select>
+                        >{ this.state.daysToReturn.map((itm)=>  <option key={itm} value={itm}>{itm}</option>) }</Select>
                         </div>
                         <div className="field-profile">
                         <div className="labelOptions">Horario:</div>
@@ -149,7 +192,7 @@ class SelectDrop extends React.Component {
                             margin="dense"   
                             value = { this.state.city }
                             className="text-profile"
-                        ><option value="Rosario">16 a 18</option></Select></div><div className="field-profile">
+                        >{ this.state.hoursToReturn.map((itm)=>  <option key={it} value={it}>{it}</option>) }</Select></div><div className="field-profile">
                             <Button variant="contained" color="secondary" type="submit" className="button-profile"> Siguiente</Button>
                         </div>
                     </form>
